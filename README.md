@@ -43,11 +43,14 @@
 |% de superficie urbaine|EN.URB.LAND.ZS|
 |% de superficie cultivable|AG.LND.ARBL.ZS|
 
-*N.B:*
+**N.B:**
 
 Superficie_urbaine = (% urban land / 100) × Superficie_totale
 
 Population_urbaine = Population_totale × (Population_urbaine_% / 100)
+
+⚠️ Pas de données pour superficie_urbaine_pct (EN.URB.LAND.ZS)
+
 
 
 
