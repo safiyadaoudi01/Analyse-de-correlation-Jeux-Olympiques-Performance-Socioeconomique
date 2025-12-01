@@ -6,7 +6,7 @@
 |------------|---------------------|
 | Médailles totales | Combien de médailles ce pays a-t-il remportées ? |
 | Médaille-score pondéré | Quelle est la qualité globale des médailles (or/argent/bronze) de ce pays ? |
-| Médaille-score pondéré / million habitants | Est-ce que ce pays gagne plus ou moins de médailles que ce qu’on aurait prédit simplement avec sa population ? |
+| Médaille-score pondéré / million habitants (Score pondéré / (Population / 1 000 000)) | Est-ce que ce pays gagne plus ou moins de médailles que ce qu’on aurait prédit simplement avec sa population ? |
 | Ratio médailles / taux alphabétisation | La performance sportive est-elle liée au niveau d’éducation du pays ?|
 | Ratio médailles / urbanisation (Médailles ÷ % population urbaine) | Les pays plus urbanisés sont-ils plus performants aux Jeux ? |
 | Ratio sportivité / densité (Médailles ÷ (Population ÷ Superficie)) | La densité de population influence-t-elle la performance sportive ? |
