@@ -8,10 +8,10 @@
 | Médaille-score pondéré | Quelle est la qualité globale des médailles (or/argent/bronze) de ce pays ? |
 | Médaille-score pondéré / million habitants | Est-ce que ce pays gagne plus ou moins de médailles que ce qu’on aurait prédit simplement avec sa population ? |
 | Ratio médailles / taux alphabétisation | La performance sportive est-elle liée au niveau d’éducation du pays ?|
-| Ratio médailles / urbanisation | Les pays plus urbanisés sont-ils plus performants aux Jeux ? |
+| Ratio médailles / urbanisation (Médailles ÷ % population urbaine) | Les pays plus urbanisés sont-ils plus performants aux Jeux ? |
 | Ratio sportivité / densité (Médailles ÷ (Population ÷ Superficie)) | La densité de population influence-t-elle la performance sportive ? |
 | Médailles / PIB | Est ce que un pays “utilise bien” sa richesse pour produire de la performance olympique (sans prendre en compte la qualité des médailles ?) |
-| Score pondéré / PIB | Ce pays obtient-il des médailles de grande valeur malgré un PIB limité ? |
+| Score pondéré / PIB_en_milliards (Médailles ÷ (PIB / 1e9)) | Ce pays obtient-il des médailles de grande valeur malgré un PIB limité ? |
 | Taux participation aux JO par habitant (Athlètes ÷ population 15–64 ans)| Quelle proportion de la population active participe réellement aux Jeux ? |
 | Ratio médaille / accès électricité| Le niveau d’accès aux infrastructures de base influence-t-il la performance sportive ? |
 | Score efficacité composite (Score pondéré ÷ population × PIB per capita)| Ce pays est-il performant malgré sa taille et son niveau de richesse ? |
@@ -43,7 +43,12 @@
 |% de superficie urbaine|EN.URB.LAND.ZS|
 |% de superficie cultivable|AG.LND.ARBL.ZS|
 
-N.B:Superficie_urbaine = (% urban land / 100) × Superficie_totale
+*N.B:*
+
+Superficie_urbaine = (% urban land / 100) × Superficie_totale
+
+Population_urbaine = Population_totale × (Population_urbaine_% / 100)
+
 
 
 
