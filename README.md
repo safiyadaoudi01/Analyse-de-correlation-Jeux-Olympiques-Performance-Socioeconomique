@@ -54,7 +54,7 @@ Population_urbaine = Population_totale × (Population_urbaine_% / 100)
 
 
 
-<img width="1364" height="778" alt="image" src="https://github.com/user-attachments/assets/07a541f9-02a9-4555-bc9f-7f84708d3e21" />
+<img width="1037" height="497" alt="image" src="https://github.com/user-attachments/assets/00370bbc-6516-4f2d-a289-6ecb6a296d13" />
 
 
 
