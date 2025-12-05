@@ -64,10 +64,14 @@ Ce dataset fournit une correspondance entre les codes NOC et les pays/régions p
 L’API **World Bank** (https://api.worldbank.org/V2) fournit un accès direct aux indicateurs socio-économiques et démographiques de tous les pays, tels que le PIB, la population, l’espérance de vie, le taux de scolarisation, l’accès à l’électricité, etc.  
 Ces données peuvent être téléchargées au format CSV/Excel ou récupérées via l’API pour des analyses automatisées.
 
+## ⚙ Prérequis techniques
+
+- Python:pour le nettoyage et calcul des KPI
+- MySQL:pour modélisation
+- Tableuax: pour la visualisation
 
 
-
-## KPI actionnables:
+## KPI actionnables choisis:
 
 | Indicateur | Répond à la question |
 |------------|---------------------|
@@ -86,8 +90,6 @@ Ces données peuvent être téléchargées au format CSV/Excel ou récupérées 
 | Ratio participation / femmes (Athlètes femmes ÷ population femmes 15–64 ans)| Les femmes sont-elles proportionnellement bien représentées parmi les athlètes ? |
 | Ratio médaille / densité urbaine (Médailles ÷ (Population urbaine ÷ Superficie urbaine))| Est-ce qu’un pays très urbanisé produit plus ou moins de médailles qu’on ne le penserait ? |
 
-
-
 ## Codes WDI nécessaires pour les KPI actionnables :
 
 | Nom | Code WDI |
@@ -104,11 +106,66 @@ Ces données peuvent être téléchargées au format CSV/Excel ou récupérées 
 |densite urbaine|EN.URB.LCTY|
 
 
+## Importation et nettoyage de données
+
+### Importation des données avec python 
+
+| nom de fichier | type | bibliothéque utilisée | description |
+|----------------|------|-----------------------|-------------|
+| athlete_event | csv | pandas, numpy | athlètes, médailles, disciplines, années, etc|
+| noc_regions | csv | pandas numpy | correspondance codes NOC / pays ou régions |
+| World Development Indicators (WDI) | API | Request, time| PIB, population, taux d’alphabétisation, accès à l’électricité, etc. |
+
+## Traitement des données 
+### Nettoyage des vals null
+
+## Table **Region**
+
+* Vérification de l’état initial des valeurs manquantes avec :
+
+```python
+df_noc.isnull().sum()
+```
+
+Résultat :
+
+```
+NOC         0
+region      3
+notes     209
+```
+
+* La colonne **notes** a été supprimée car elle contenait trop de valeurs manquantes.
+* Parmi les 3 valeurs nulles dans **region**, les codes NOC correspondants étaient : **UNK**, **ROT**, **TUV**.
+* Les actions appliquées :
+
+  * Suppression de la ligne où **NOC = UNK** (Unknown)
+  * Remplacement de **ROT** par **Refugee Olympic Team**
+  * Remplacement de **TUV** par **Tuvalu**
+
+
+## Table athléte:
+On a vérifier l'état initial par le code : **df_athlete.isnull().sum()**
+
+ID             0
+Name           0
+Sex            0
+Age         9474
+Height     60171
+Weight     62875
+Team           0
+NOC            0
+Games          0
+Year           0
+Season         0
+City           0
+Sport          0
+Event          0
+Medal     231333
+dtype: int64
 
 
 
-
-<img width="1037" height="497" alt="image" src="https://github.com/user-attachments/assets/00370bbc-6516-4f2d-a289-6ecb6a296d13" />
 
 
 
