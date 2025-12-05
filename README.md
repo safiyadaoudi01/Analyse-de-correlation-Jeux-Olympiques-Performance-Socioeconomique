@@ -1,4 +1,71 @@
 # Analyse de corrélation Jeux Olympiques & Performance Socio‑Économique
+## 🎯 Objectif du projet
+Ce projet vise à analyser la relation entre la *performance sportive des pays aux Jeux Olympiques* (médailles) et leurs *indicateurs socio-économiques* (PIB, population, urbanisation, etc.) à l’aide des données de la *World Bank (WDI)*.
+
+Le projet génère :
+- Des données nettoyées
+- Des KPI de performance
+- Des fichiers exploitables pour la visualisation et l’analyse
+
+## 📥 Sources de Données
+
+### Fichier : `athlete_events.csv`
+
+#### Description générale
+Ce dataset contient les informations biographiques des athlètes et leurs résultats aux Jeux Olympiques modernes, de **Athènes 1896 à Rio 2016**.
+
+- **Nombre de lignes :** 271 116 (une ligne par participation d’un athlète à un événement)  
+- **Nombre de colonnes :** 15  
+- **Remarques importantes :**  
+  - Jusqu’en 1992, les Jeux d’été et d’hiver se tenaient la même année.  
+  - Depuis 1994, les Jeux d’hiver et d’été sont alternés tous les 2 ans (Winter 1994, Summer 1996, etc.).  
+  - Ne pas supposer que les Jeux d’été et d’hiver ont toujours été décalés.
+
+#### Colonnes
+
+| Colonne | Description |
+|---------|------------|
+| `ID` | Numéro unique identifiant chaque athlète. |
+| `Name` | Nom complet de l’athlète. |
+| `Sex` | Sexe de l’athlète (`M` pour masculin, `F` pour féminin). |
+| `Age` | Âge de l’athlète en années. |
+| `Height` | Taille de l’athlète en centimètres. |
+| `Weight` | Poids de l’athlète en kilogrammes. |
+| `Team` | Nom de l’équipe ou du pays représenté par l’athlète. |
+| `NOC` | Code à 3 lettres du Comité National Olympique associé au pays. |
+| `Games` | Année et saison des Jeux (ex. `1992 Summer`). |
+| `Year` | Année des Jeux. |
+| `Season` | Saison des Jeux (`Summer` ou `Winter`). |
+| `City` | Ville hôte des Jeux. |
+| `Sport` | Discipline sportive. |
+| `Event` | Événement précis (discipline + catégorie). |
+| `Medal` | Type de médaille remportée (`Gold`, `Silver`, `Bronze`) ou `NA` si aucune médaille. |
+
+
+### Fichier : `noc_regions.csv`
+
+#### Description générale
+Ce dataset fournit une correspondance entre les codes NOC et les pays/régions pour faciliter la visualisation et l’analyse géographique.
+
+- **Taille :** 3 colonnes, 230 lignes
+- **Utilité :** Permet de relier les données olympiques à des informations pays/région pour code NOC.
+
+#### Colonnes
+
+| Colonne | Description |
+|---------|------------|
+| `NOC` | Code à 3 lettres du Comité National Olympique. |
+| `region` | Nom du pays ou de la région correspondante au NOC. |
+| `notes` | Informations complémentaires ou remarques sur le NOC. |
+
+
+### API World Bank — World Development Indicators (WDI)
+
+L’API **World Bank** (https://api.worldbank.org/V2) fournit un accès direct aux indicateurs socio-économiques et démographiques de tous les pays, tels que le PIB, la population, l’espérance de vie, le taux de scolarisation, l’accès à l’électricité, etc.  
+Ces données peuvent être téléchargées au format CSV/Excel ou récupérées via l’API pour des analyses automatisées.
+
+
+
 
 ## KPI actionnables:
 
