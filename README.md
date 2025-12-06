@@ -117,7 +117,6 @@ Ces données peuvent être téléchargées au format CSV/Excel ou récupérées 
 | World Development Indicators (WDI) | API | Request, time| PIB, population, taux d’alphabétisation, accès à l’électricité, etc. |
 
 ## Traitement des données 
-### Nettoyage des vals null
 
 ## Table **Region**
 
@@ -135,7 +134,7 @@ region      3
 notes     209
 ```
 
-* La colonne **notes** a été supprimée car elle contenait trop de valeurs manquantes.
+* La colonne **notes** a été supprimée car elle contenait trop de valeurs manquantes et n’était pas nécessaire pour notre analyse.
 * Parmi les 3 valeurs nulles dans **region**, les codes NOC correspondants étaient : **UNK**, **ROT**, **TUV**.
 * Les actions appliquées :
 
@@ -144,34 +143,77 @@ notes     209
   * Remplacement de **TUV** par **Tuvalu**
 
 
-## Table athléte:
-On a vérifier l'état initial par le code : **df_athlete.isnull().sum()**
+## Table **Athlete**
 
-ID             0
-Name           0
-Sex            0
-Age         9474
-Height     60171
-Weight     62875
-Team           0
-NOC            0
-Games          0
-Year           0
-Season         0
-City           0
-Sport          0
-Event          0
-Medal     231333
-dtype: int64
+* Vérification des doublons :
+
+  ```python
+  df_athlete.duplicated().sum()
+  ```
+
+  Résultat : **1385** doublons
+  → Suppression avec :
+
+  ```python
+  df_athlete.drop_duplicates(inplace=True)
+  ```
+
+* Vérification de l’état initial des valeurs manquantes :
+
+  ```
+  ID             0
+  Name           0
+  Sex            0
+  Age         9474
+  Height     60171
+  Weight     62875
+  Team           0
+  NOC            0
+  Games          0
+  Year           0
+  Season         0
+  City           0
+  Sport          0
+  Event          0
+  Medal     231333
+  ```
+
+* Traitement des valeurs manquantes :
+
+  * Remplacement des valeurs nulles dans **Medal** par `"No Medal"` :
+
+    ```python
+    df_athlete["Medal"].fillna("No Medal", inplace=True)
+    ```
+  * Suppression des colonnes **Age**, **Height**, **Weight**
+    → Taux trop élevé de valeurs manquantes et non pertinentes pour l’analyse socio-économique.
+
+* Correction du NOC de Singapour :
+  Remplacement de **SGP** par **SIN** pour correspondre à la table `df_noc` :
+
+  ```python
+  df_athlete["NOC"] = df_athlete["NOC"].replace("SGP", "SIN")
+  ```
+
+* Création d’une colonne **medal_score** basée sur le type de médaille :
+
+  ```python
+  df_athlete_merged["medal_score"] = df_athlete_merged["Medal"].map({
+      "Gold": 3,
+      "Silver": 2,
+      "Bronze": 1,
+      "No Medal": 0
+  })
+  ```
+
+* Extraction de la plage des années présentes dans `df_athlete` :
+
+  ```python
+  min_year = df_athlete["Year"].min()
+  max_year = df_athlete["Year"].max()
+  ```
 
 
-
-
-
-
-
-
-
-
+## API **World Bank Data**
 
 
