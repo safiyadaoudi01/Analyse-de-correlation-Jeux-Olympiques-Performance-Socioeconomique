@@ -106,9 +106,7 @@ Ces données peuvent être téléchargées au format CSV/Excel ou récupérées 
 |densite urbaine|EN.URB.LCTY|
 
 
-## Importation et nettoyage de données
-
-### Importation des données avec python 
+## 🐍 Importation des données avec Python
 
 | nom de fichier | type | bibliothéque utilisée | description |
 |----------------|------|-----------------------|-------------|
@@ -116,9 +114,9 @@ Ces données peuvent être téléchargées au format CSV/Excel ou récupérées 
 | noc_regions | csv | pandas numpy | correspondance codes NOC / pays ou régions |
 | World Development Indicators (WDI) | API | Request, time| PIB, population, taux d’alphabétisation, accès à l’électricité, etc. |
 
-## Traitement des données 
+## 🧹 Traitement des données
 
-## Table **Region**
+### Table **Region**
 
 * Vérification de l’état initial des valeurs manquantes avec :
 
@@ -143,7 +141,7 @@ notes     209
   * Remplacement de **TUV** par **Tuvalu**
 
 
-## Table **Athlete**
+### Table **Athlete**
 
 * Vérification des doublons :
 
@@ -212,8 +210,74 @@ notes     209
   min_year = df_athlete["Year"].min()
   max_year = df_athlete["Year"].max()
   ```
+Résultat : **1896** , **2016**
 
+### API **World Bank Data**
 
-## API **World Bank Data**
+* Récupération des indicateurs via l’API World Bank en remplaçant à chaque fois `{code}` par le code d’indicateur souhaité :
+
+  ```
+  https://api.worldbank.org/v2/country/all/indicator/{code}?format=json&per_page=20000&date=1896:2016
+  ```
+
+* Téléchargement de chaque indicateur sous forme de dataframe contenant uniquement :
+
+  ```python
+  {
+      "country": d["country"]["value"],
+      "year": int(d["date"]),
+      name: d["value"]
+  }
+  ```
+
+* Fusion de tous les dataframes d’indicateurs pour obtenir un unique tableau final :
+
+  ```
+  df_wb.shape  →  (15105, 12)
+  ```
+
+* Jointure avec la table `df_noc` pour ajouter la colonne **NOC** :
+
+  ```python
+  df_wb_final = df_wb.merge(
+      df_noc,
+      left_on="country",
+      right_on="region",
+      how="inner"
+  ).drop(columns=["region"])
+  ```
+
+* Vérification des valeurs manquantes :
+
+  ```
+  country                    0
+  year                       0
+  population_total           0
+  population_65_UP           0
+  population_15_64           0
+  densite                 1265
+  pib_total               1678
+  pib_par_habitant        1678
+  croissance_pib          1893
+  participation_femmes    5856
+  densite_urbaine         2394
+  population_urbaine        57
+  NOC                        0
+  ```
+
+* Utilisation de l’interpolation pour combler certaines valeurs manquantes tout en respectant la tendance réelle des données.
+
+* Sélection uniquement des années présentes dans `df_athlete` :
+
+  ```python
+  years = df_athlete["Year"].unique()
+  df_wb_final = df_wb_final[df_wb_final["year"].isin(years)]
+  ```
+
+  Résultat :
+
+  ```
+  df_wb_final.shape  →  (3759, 13)
+  ```
 
 
